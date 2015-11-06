@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="@string/bet"
         android:id="@+id/item_cashdesk_tv_price"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DEL"
+        android:text="@string/del"
         android:id="@+id/item_cashdesk_tv_del"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="40dp"
-        android:text="New Text"
+        android:text="@string/amount"
         android:id="@+id/item_cashdesk_tv_amount"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/item_cashdesk_tv_del"

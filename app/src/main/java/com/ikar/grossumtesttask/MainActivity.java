@@ -28,17 +28,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-
+                getmainFragment().addData();
                 return true;
             case R.id.action_reset:
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                MainFragment currentFragment
-                        = (MainFragment) fragmentManager.findFragmentById(R.id.main_fragment);
-                currentFragment.resetData();
+                getmainFragment().resetData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private MainFragment getmainFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        MainFragment currentFragment
+                = (MainFragment) fragmentManager.findFragmentById(R.id.main_fragment);
+        return currentFragment;
     }
 }

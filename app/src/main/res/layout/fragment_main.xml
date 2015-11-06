@@ -22,8 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="number"
+            android:imeOptions="actionDone"
             android:digits="0,1,2,3,4,5,6,7,8,9"
-            android:hint="Enter the amount"/>
+            android:hint="@string/enter_amount"/>
 
     </RelativeLayout>
 
