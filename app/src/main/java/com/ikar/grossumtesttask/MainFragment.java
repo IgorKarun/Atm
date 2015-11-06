@@ -75,8 +75,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String orderBy =  DbHelper._DENOMINATION + " ASC";
         return new CursorLoader(getActivity(), UriMatcherHelper.CONTENT_URI,
-                null, null, null, null);
+                null, null, null, orderBy);
     }
 
     @Override

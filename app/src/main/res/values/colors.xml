@@ -10,5 +10,5 @@
     <color name="item_primary_text_color">#FFFFFF</color>
     <color name="item_secondary_text_color">#AAFFFFFF</color>
 
-    <color name="bg_item">#F44336</color>
+    <color name="bg_item">#bcbec0</color>
 </resources>
