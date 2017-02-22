@@ -21,8 +21,8 @@ public class DbHelper extends SQLiteOpenHelper{
     static final String DB_CREATE = "create table "
             + TABLE + "("
             + _ID + " integer primary key autoincrement, "
-            + _DENOMINATION + " text, "
-            + _INVENTORY + " text"
+            + _DENOMINATION + " integer, "
+            + _INVENTORY + " integer"
             + ");";
 
     public DbHelper(Context context) {
@@ -31,7 +31,7 @@ public class DbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(DB_CREATE);
     }
 
     @Override
