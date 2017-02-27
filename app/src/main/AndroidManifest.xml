@@ -5,6 +5,7 @@
 
     <application
         android:allowBackup="true"
+        android:installLocation="auto"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"

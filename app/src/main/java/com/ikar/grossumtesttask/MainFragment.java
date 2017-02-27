@@ -25,11 +25,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ikar.grossumtesttask.adapters.RecyclerViewAdapter;
-import com.ikar.grossumtesttask.algorithms.CashRecursiveAlgorithm;
 import com.ikar.grossumtesttask.algorithms.ICash;
+import com.ikar.grossumtesttask.components.DaggerICashComponent;
 import com.ikar.grossumtesttask.data.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
+import com.ikar.grossumtesttask.modules.CashIteratorAlgorithmModule;
 import com.ikar.grossumtesttask.views.AddItemFragmentDialog;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -134,7 +135,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             cursor.close();
         }
 
-        ICash cash = new CashRecursiveAlgorithm();
+        ICash cash = DaggerICashComponent.create().getCash();
         Map<Integer, Integer> result = cash.getAmount(cashDeskItems, cashDeskItems.size() - 1, amount);
         if(result != null && result.size() > 0) {
             //Succesful transaction
