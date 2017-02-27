@@ -31,6 +31,7 @@ import com.ikar.grossumtesttask.data.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
+import com.ikar.grossumtesttask.utils.cache.ColumnIndexCache;
 import com.ikar.grossumtesttask.views.AddItemFragmentDialog;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -127,11 +128,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
                         TableCashDesk._DENOMINATION +"<=?", args, orderBy);
 
         if(cursor != null) {
-            while (cursor.moveToNext()) {
-                int denomination = cursor.getInt(cursor.getColumnIndex(TableCashDesk._DENOMINATION));
-                int count = cursor.getInt(cursor.getColumnIndex(TableCashDesk._INVENTORY));
-                cashDeskItems.add(new CashDeskItem(denomination, count));
-            }
+            ColumnIndexCache cache = new ColumnIndexCache();
+            while (cursor.moveToNext())
+                cashDeskItems.add(new CashDeskItem(cursor, cache));
             cursor.close();
         }
 
