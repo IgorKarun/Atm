@@ -30,6 +30,7 @@ import com.ikar.grossumtesttask.components.DaggerICashComponent;
 import com.ikar.grossumtesttask.data.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
+import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
 import com.ikar.grossumtesttask.views.AddItemFragmentDialog;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -76,7 +77,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String orderBy =  DbHelper._DENOMINATION + " ASC";
+        String orderBy =  TableCashDesk._DENOMINATION + " ASC";
         return new CursorLoader(getActivity(), UriMatcherHelper.CONTENT_URI,
                 null, null, null, orderBy);
     }
@@ -119,16 +120,16 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     private void calculateCashDesk(int amount) {
         List<CashDeskItem> cashDeskItems = new ArrayList<>();
 
-        String orderBy =  DbHelper._DENOMINATION + " ASC";
+        String orderBy =  TableCashDesk._DENOMINATION + " ASC";
         String[] args = new String[]{String.valueOf(amount)};
         Cursor cursor = getActivity().getContentResolver()
                 .query(UriMatcherHelper.CONTENT_URI, null,
-                        DbHelper._DENOMINATION +"<=?", args, orderBy);
+                        TableCashDesk._DENOMINATION +"<=?", args, orderBy);
 
         if(cursor != null) {
             while (cursor.moveToNext()) {
-                int denomination = cursor.getInt(cursor.getColumnIndex(DbHelper._DENOMINATION));
-                int count = cursor.getInt(cursor.getColumnIndex(DbHelper._INVENTORY));
+                int denomination = cursor.getInt(cursor.getColumnIndex(TableCashDesk._DENOMINATION));
+                int count = cursor.getInt(cursor.getColumnIndex(TableCashDesk._INVENTORY));
                 cashDeskItems.add(new CashDeskItem(denomination, count));
             }
             cursor.close();
@@ -141,9 +142,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
                 String[] selectionArgs = new String[]{String.valueOf(entry.getKey())};
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(DbHelper._INVENTORY, entry.getValue());
+                contentValues.put(TableCashDesk._INVENTORY, entry.getValue());
                 getActivity().getContentResolver().update(UriMatcherHelper.CONTENT_URI, contentValues,
-                        DbHelper._DENOMINATION +"=?", selectionArgs);
+                        TableCashDesk._DENOMINATION +"=?", selectionArgs);
             }
             transactionDialog("Transaction succesful.", "Please get your "
                     + Integer.toString(amount) + "$");
@@ -231,8 +232,8 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
         for (Integer item : denominationList) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(DbHelper._DENOMINATION, item);
-            contentValues.put(DbHelper._INVENTORY, DEFAULT_INVENTORY);
+            contentValues.put(TableCashDesk._DENOMINATION, item);
+            contentValues.put(TableCashDesk._INVENTORY, DEFAULT_INVENTORY);
             getActivity().getContentResolver().insert(UriMatcherHelper.CONTENT_URI, contentValues);
         }
     }
