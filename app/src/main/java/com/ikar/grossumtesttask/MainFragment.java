@@ -30,7 +30,6 @@ import com.ikar.grossumtesttask.components.DaggerICashComponent;
 import com.ikar.grossumtesttask.data.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
-import com.ikar.grossumtesttask.modules.CashIteratorAlgorithmModule;
 import com.ikar.grossumtesttask.views.AddItemFragmentDialog;
 import com.melnykov.fab.FloatingActionButton;
 
