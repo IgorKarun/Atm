@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ikar.grossumtesttask.adapters.RecyclerViewAdapter;
+import com.ikar.grossumtesttask.algorithms.CashRecursiveAlgorithm;
+import com.ikar.grossumtesttask.algorithms.ICash;
 import com.ikar.grossumtesttask.data.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
@@ -33,7 +35,6 @@ import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -115,11 +116,8 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
-    private Map<Integer, Integer> balance;
-
     private void calculateCashDesk(int amount) {
         List<CashDeskItem> cashDeskItems = new ArrayList<>();
-        balance = new HashMap<>();
 
         String orderBy =  DbHelper._DENOMINATION + " ASC";
         String[] args = new String[]{String.valueOf(amount)};
@@ -136,11 +134,11 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             cursor.close();
         }
 
-        boolean result = checkBets(cashDeskItems, cashDeskItems.size() - 1, amount);
-
-        if(result) {
+        ICash cash = new CashRecursiveAlgorithm();
+        Map<Integer, Integer> result = cash.getAmount(cashDeskItems, cashDeskItems.size() - 1, amount);
+        if(result != null && result.size() > 0) {
             //Succesful transaction
-            for (Map.Entry<Integer, Integer> entry : balance.entrySet()) {
+            for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
                 String[] selectionArgs = new String[]{String.valueOf(entry.getKey())};
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(DbHelper._INVENTORY, entry.getValue());
@@ -167,35 +165,6 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
                         }
                 )
                 .show();
-    }
-
-    /*
-    Main Bet Algorithm
-     */
-    private boolean checkBets(List<CashDeskItem> cashDeskItems,
-                              int noteItemNumber, int currentAmount) {
-        if(noteItemNumber < 0) return false;
-        if(currentAmount > 0) {
-            final int defaultAmount = currentAmount;
-            int betItem = cashDeskItems.get(noteItemNumber).getDenomination();
-            int maxBetsPerAmount = (int) Math.floor(currentAmount / betItem);
-            int maxBetsCount = cashDeskItems.get(noteItemNumber).getInventory();
-            int minIterations = maxBetsPerAmount <= maxBetsCount ? maxBetsPerAmount : maxBetsCount;
-            for(int i = minIterations; i >= 0; i--) {
-                currentAmount = defaultAmount;
-                balance.put(betItem, maxBetsCount - i);
-                currentAmount = currentAmount - i * betItem;
-                if(currentAmount == 0) {
-                    return true;
-                } else {
-                    boolean status = checkBets(cashDeskItems, noteItemNumber - 1, currentAmount);
-                    if(status)
-                        return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     public static int checkInputAmount(Context context, String amountText, String negativeMessage) {
