@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.ikar.grossumtesttask.MainFragment;
 import com.ikar.grossumtesttask.R;
-import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
+import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
 
 /**
  * Created by iKar on 11/6/15.
@@ -48,15 +48,15 @@ public class AddItemFragmentDialog extends DialogFragment {
 
                 String[] selectionArgs=new String[]{String.valueOf(bet)};
                 Cursor cursor = getActivity().getContentResolver().query(UriMatcherHelper.CONTENT_URI, null,
-                        DbHelper._DENOMINATION + "=?", selectionArgs ,null);
+                        TableCashDesk._DENOMINATION + "=?", selectionArgs ,null);
                 if(cursor == null || cursor.getCount() > 0) {
                     Toast.makeText(getActivity(), "Sorry this BET is present in DB",
                             Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(DbHelper._DENOMINATION, bet);
-                    contentValues.put(DbHelper._INVENTORY, amount > 0 ? amount : MainFragment.DEFAULT_INVENTORY);
+                    contentValues.put(TableCashDesk._DENOMINATION, bet);
+                    contentValues.put(TableCashDesk._INVENTORY, amount > 0 ? amount : MainFragment.DEFAULT_INVENTORY);
                     getActivity().getContentResolver().insert(UriMatcherHelper.CONTENT_URI, contentValues);
                     AddItemFragmentDialog.this.dismiss();
                 }

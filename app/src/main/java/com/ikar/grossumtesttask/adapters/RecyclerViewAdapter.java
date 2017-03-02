@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ikar.grossumtesttask.R;
 import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
+import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
 
 /**
  * Created by iKar on 11/5/15.
@@ -39,9 +40,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-        final int rowId = cursor.getInt(cursor.getColumnIndex(DbHelper._ID));
-        final String price = cursor.getString(cursor.getColumnIndex(DbHelper._DENOMINATION));
-        final String amount = cursor.getString(cursor.getColumnIndex(DbHelper._INVENTORY));
+        final int rowId = cursor.getInt(cursor.getColumnIndex(TableCashDesk._ID));
+        final String price = cursor.getString(cursor.getColumnIndex(TableCashDesk._DENOMINATION));
+        final String amount = cursor.getString(cursor.getColumnIndex(TableCashDesk._INVENTORY));
 
         holder.price.setText(price + "$");
         holder.amount.setText(amount);
@@ -71,7 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private void deleteItem(int rowId) {
         String[] selectionArgs=new String[]{String.valueOf(rowId)};
         activity.getContentResolver().delete(UriMatcherHelper.CONTENT_URI,
-                DbHelper._ID +"=?", selectionArgs);
+                TableCashDesk._ID +"=?", selectionArgs);
 
     }
 

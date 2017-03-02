@@ -28,7 +28,6 @@ import com.ikar.grossumtesttask.adapters.RecyclerViewAdapter;
 import com.ikar.grossumtesttask.algorithms.ICash;
 import com.ikar.grossumtesttask.components.DaggerICashComponent;
 import com.ikar.grossumtesttask.data.CashDeskItem;
-import com.ikar.grossumtesttask.db.DbHelper;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
 import com.ikar.grossumtesttask.utils.cache.ColumnIndexCache;
@@ -41,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
 
 /**
  * Created by iKar on 11/5/15.
@@ -118,6 +119,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
+    @Inject
+    ICash cash;
+
     private void calculateCashDesk(int amount) {
         List<CashDeskItem> cashDeskItems = new ArrayList<>();
 
@@ -134,7 +138,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             cursor.close();
         }
 
-        ICash cash = DaggerICashComponent.create().getCash();
+        cash = DaggerICashComponent.create().getCash();
         Map<Integer, Integer> result = cash.getAmount(cashDeskItems, cashDeskItems.size() - 1, amount);
         if(result != null && result.size() > 0) {
             //Succesful transaction
