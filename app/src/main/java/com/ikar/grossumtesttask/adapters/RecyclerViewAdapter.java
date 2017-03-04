@@ -69,6 +69,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return cursor;
     }
 
+    public Cursor swapCursor(Cursor newCursor) {
+        if (cursor == newCursor) {
+            return null;
+        }
+        Cursor oldCursor = cursor;
+        this.cursor = newCursor;
+        if (newCursor != null) {
+            this.notifyDataSetChanged();
+        }
+        return oldCursor;
+    }
+
     private void deleteItem(int rowId) {
         String[] selectionArgs=new String[]{String.valueOf(rowId)};
         activity.getContentResolver().delete(UriMatcherHelper.CONTENT_URI,

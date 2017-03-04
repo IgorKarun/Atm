@@ -11,10 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ikar.grossumtesttask.MainFragment;
+import com.ikar.grossumtesttask.main.MainFragment;
 import com.ikar.grossumtesttask.R;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
+import com.ikar.grossumtesttask.main.MainFragmentPresenter;
 
 /**
  * Created by iKar on 11/6/15.
@@ -41,9 +42,9 @@ public class AddItemFragmentDialog extends DialogFragment {
                 String strBet = itemBet.getText().toString();
                 String strAmount = itemAmount.getText().toString();
 
-                int bet = MainFragment.checkInputAmount(getActivity(), strBet, "Please enter a bet");
+                int bet = MainFragmentPresenter.checkInputAmount(getActivity(), strBet, "Please enter a bet");
                 if(bet == 0) return;
-                int amount = MainFragment.checkInputAmount(getActivity(), strAmount, "Please enter amount");
+                int amount = MainFragmentPresenter.checkInputAmount(getActivity(), strAmount, "Please enter amount");
                 if(amount == 0) return;
 
                 String[] selectionArgs=new String[]{String.valueOf(bet)};
@@ -56,7 +57,8 @@ public class AddItemFragmentDialog extends DialogFragment {
                 } else {
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(TableCashDesk._DENOMINATION, bet);
-                    contentValues.put(TableCashDesk._INVENTORY, amount > 0 ? amount : MainFragment.DEFAULT_INVENTORY);
+                    contentValues.put(TableCashDesk._INVENTORY, amount > 0 ? amount
+                            : MainFragmentPresenter.DEFAULT_INVENTORY);
                     getActivity().getContentResolver().insert(UriMatcherHelper.CONTENT_URI, contentValues);
                     AddItemFragmentDialog.this.dismiss();
                 }
