@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
+
 /**
  * Created by iKar on 11/5/15.
  */
@@ -31,7 +33,7 @@ public class CashDeskContentProvider extends ContentProvider {
 
         switch (UriMatcherHelper.uriMatcher.match(uri)) {
             case UriMatcherHelper.URI_CASHDESK:
-                cursor = db.query(DbHelper.TABLE, projection, selection,
+                cursor = db.query(TableCashDesk.TABLE, projection, selection,
                         selectionArgs, null, null, sortOrder);
                 break;
         }
@@ -57,7 +59,7 @@ public class CashDeskContentProvider extends ContentProvider {
 
         switch (UriMatcherHelper.uriMatcher.match(uri)) {
             case UriMatcherHelper.URI_CASHDESK:
-                rowId = db.insert(DbHelper.TABLE, null, values);
+                rowId = db.insert(TableCashDesk.TABLE, null, values);
                 break;
         }
 
@@ -77,7 +79,7 @@ public class CashDeskContentProvider extends ContentProvider {
 
         switch (UriMatcherHelper.uriMatcher.match(uri)) {
             case UriMatcherHelper.URI_CASHDESK:
-                ret = db.delete(DbHelper.TABLE, selection, selectionArgs);
+                ret = db.delete(TableCashDesk.TABLE, selection, selectionArgs);
                 break;
         }
 
@@ -92,7 +94,7 @@ public class CashDeskContentProvider extends ContentProvider {
         int count = 0;
         switch (UriMatcherHelper.uriMatcher.match(uri)) {
             case UriMatcherHelper.URI_CASHDESK:
-                count = db.update(DbHelper.TABLE, values, selection, selectionArgs);
+                count = db.update(TableCashDesk.TABLE, values, selection, selectionArgs);
                 break;
         }
 

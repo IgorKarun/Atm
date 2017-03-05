@@ -16,7 +16,9 @@ public class CashRecursiveAlgorithm implements ICash {
 
     @Override
     public Map<Integer, Integer> getAmount(List<CashDeskItem> cashDeskItems, int noteItemNumber, int currentAmount) {
-        if(noteItemNumber < 0) return null;
+        if(cashDeskItems == null
+                || cashDeskItems.size() == 0
+                || noteItemNumber < 0) return null;
         if(currentAmount > 0) {
             final int defaultAmount = currentAmount;
             int betItem = cashDeskItems.get(noteItemNumber).getDenomination();
