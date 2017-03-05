@@ -1,6 +1,6 @@
 package com.ikar.grossumtesttask.algorithms;
 
-import com.ikar.grossumtesttask.data.CashDeskItem;
+import com.ikar.grossumtesttask.model.CashDeskItem;
 
 import java.util.HashMap;
 import java.util.List;

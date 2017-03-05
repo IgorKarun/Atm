@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.ikar.grossumtesttask.App;
-import com.ikar.grossumtesttask.data.CashDeskItem;
+import com.ikar.grossumtesttask.model.CashDeskItem;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
 import com.ikar.grossumtesttask.utils.cache.ColumnIndexCache;
 

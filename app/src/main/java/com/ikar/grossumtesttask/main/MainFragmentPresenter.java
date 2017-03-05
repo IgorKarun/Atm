@@ -14,7 +14,7 @@ import com.ikar.grossumtesttask.App;
 import com.ikar.grossumtesttask.algorithms.ICash;
 import com.ikar.grossumtesttask.common.shared.Shared;
 import com.ikar.grossumtesttask.components.DaggerICashComponent;
-import com.ikar.grossumtesttask.data.CashDeskItem;
+import com.ikar.grossumtesttask.model.CashDeskItem;
 import com.ikar.grossumtesttask.db.DbQuery;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
@@ -55,14 +55,14 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
         view.showAddNewItemDialog(value, amount);
     }
 
-    public static int checkInputAmount(Context context, String amountText, String negativeMessage) {
+    public int checkInputAmount(Context context, String amountText) {
         if (!TextUtils.isEmpty(amountText)) {
             Pattern p = Pattern.compile("^[1-9]\\d*$");
             Matcher m = p.matcher(amountText);
             if (m.matches())
                 return Integer.parseInt(amountText);
         } else
-            Toast.makeText(context, negativeMessage, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Please enter amount", Toast.LENGTH_LONG).show();
 
         return 0;
     }

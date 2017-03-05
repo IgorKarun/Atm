@@ -82,7 +82,7 @@ public class MainFragment extends Fragment implements View.OnClickListener,
                 /* In a real project we must apply some asynchronous mechanism */
                 EditText editTextAMount = (EditText) getActivity().findViewById(R.id.fragment_main_et_amount);
                 String amountText = editTextAMount.getText().toString();
-                int amount = presenter.checkInputAmount(getActivity(), amountText, "Please enter amount");
+                int amount = presenter.checkInputAmount(getActivity(), amountText);
                 if(amount > 0)
                     presenter.calculateCashDesk(amount);
 
