@@ -1,6 +1,5 @@
 package com.ikar.grossumtesttask.views;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ikar.grossumtesttask.main.MainFragment;
+import com.ikar.grossumtesttask.db.DbQuery;
 import com.ikar.grossumtesttask.R;
 import com.ikar.grossumtesttask.db.UriMatcherHelper;
 import com.ikar.grossumtesttask.db.scheme.TableCashDesk;
@@ -43,23 +42,19 @@ public class AddItemFragmentDialog extends DialogFragment {
                 String strAmount = itemAmount.getText().toString();
 
                 int bet = MainFragmentPresenter.checkInputAmount(getActivity(), strBet, "Please enter a bet");
-                if(bet == 0) return;
+                if (bet == 0) return;
                 int amount = MainFragmentPresenter.checkInputAmount(getActivity(), strAmount, "Please enter amount");
-                if(amount == 0) return;
+                if (amount == 0) return;
 
-                String[] selectionArgs=new String[]{String.valueOf(bet)};
+                String[] selectionArgs = new String[]{String.valueOf(bet)};
                 Cursor cursor = getActivity().getContentResolver().query(UriMatcherHelper.CONTENT_URI, null,
-                        TableCashDesk._DENOMINATION + "=?", selectionArgs ,null);
-                if(cursor == null || cursor.getCount() > 0) {
+                        TableCashDesk._DENOMINATION + "=?", selectionArgs, null);
+                if (cursor == null || cursor.getCount() > 0) {
                     Toast.makeText(getActivity(), "Sorry this BET is present in DB",
                             Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(TableCashDesk._DENOMINATION, bet);
-                    contentValues.put(TableCashDesk._INVENTORY, amount > 0 ? amount
-                            : MainFragmentPresenter.DEFAULT_INVENTORY);
-                    getActivity().getContentResolver().insert(UriMatcherHelper.CONTENT_URI, contentValues);
+                    DbQuery.addNewCashDeskItem(amount, bet);
                     AddItemFragmentDialog.this.dismiss();
                 }
             }
