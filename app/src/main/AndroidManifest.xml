@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ikar.grossumtesttask"
+    package="com.ikar.atm"
     android:installLocation="auto">
 
     <application
         android:allowBackup="true"
         android:installLocation="auto"
         android:icon="@mipmap/ic_launcher"
+        android:name="com.ikar.atm.App"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity android:name=".MainActivity" >
+        <activity android:name="com.ikar.atm.main.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +20,8 @@
         </activity>
 
         <provider
-            android:name=".db.CashDeskContentProvider"
-            android:authorities="com.ikar.grossumtesttask" />
+            android:name="com.ikar.atm.db.CashDeskContentProvider"
+            android:authorities="com.ikar.atm" />
 
     </application>
 

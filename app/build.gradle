@@ -5,11 +5,11 @@ android {
     buildToolsVersion '25.0.2'
 
     defaultConfig {
-        applicationId "com.ikar.grossumtesttask"
+        applicationId "com.ikar.atm"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.android.support:design:25.2.0'
     compile 'com.google.dagger:dagger:2.8'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
 }
