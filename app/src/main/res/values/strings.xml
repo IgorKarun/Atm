@@ -6,4 +6,12 @@
     <string name="del">DEL</string>
     <string name="amount">Amount</string>
     <string name="bet">Bet</string>
+    <string name="sorry_this_bet_is_present_in_db">Sorry this BET is present in DB</string>
+    <string name="please_enter_amount">Please enter amount</string>
+    <string name="please_enter_a_bet">Please enter a bet</string>
+    <string name="transaction_successful">Transaction successful</string>
+    <string name="transaction_failed">Transaction failed</string>
+    <string name="sorry_not_enough_cash">Sorry, not enough cash</string>
+    <string name="please_get_your_money">Please get your %d$</string>
+
 </resources>

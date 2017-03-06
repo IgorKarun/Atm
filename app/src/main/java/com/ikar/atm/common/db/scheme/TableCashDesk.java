@@ -1,4 +1,4 @@
-package com.ikar.atm.db.scheme;
+package com.ikar.atm.common.db.scheme;
 
 /**
  * Created by igorkarun on 2/27/17.

@@ -20,7 +20,7 @@
         </activity>
 
         <provider
-            android:name="com.ikar.atm.db.CashDeskContentProvider"
+            android:name=".common.db.CashDeskContentProvider"
             android:authorities="com.ikar.atm" />
 
     </application>

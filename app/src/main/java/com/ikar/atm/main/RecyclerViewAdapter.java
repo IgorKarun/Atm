@@ -1,4 +1,4 @@
-package com.ikar.atm.adapters;
+package com.ikar.atm.main;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ikar.atm.R;
-import com.ikar.atm.db.UriMatcherHelper;
-import com.ikar.atm.db.scheme.TableCashDesk;
+import com.ikar.atm.common.db.UriMatcherHelper;
+import com.ikar.atm.common.db.scheme.TableCashDesk;
 
 /**
  * Created by iKar on 11/5/15.

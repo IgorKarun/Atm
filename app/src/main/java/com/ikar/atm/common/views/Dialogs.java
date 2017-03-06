@@ -1,9 +1,8 @@
-package com.ikar.atm.views;
+package com.ikar.atm.common.views;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import com.ikar.atm.R;
 
@@ -16,7 +15,6 @@ public class Dialogs {
     private final static String TAG = Dialogs.class.getSimpleName();
 
     public static void transactionDialog(Context context, String title, String message) {
-        Log.e(TAG, "Show dialog");
         new AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
                 .setTitle(title)
                 .setMessage(message)
