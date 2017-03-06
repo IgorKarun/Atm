@@ -1,14 +1,10 @@
 package com.ikar.atm.main;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.ikar.atm.App;
 import com.ikar.atm.algorithms.ICash;
@@ -21,8 +17,6 @@ import com.ikar.atm.db.scheme.TableCashDesk;
 
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -55,18 +49,6 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
         view.showAddNewItemDialog(value, amount);
     }
 
-    public static int checkInputAmount(Context context, String amountText, String text) {
-        if (!TextUtils.isEmpty(amountText)) {
-            Pattern p = Pattern.compile("^[1-9]\\d*$");
-            Matcher m = p.matcher(amountText);
-            if (m.matches())
-                return Integer.parseInt(amountText);
-        } else
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-
-        return 0;
-    }
-
     public void defaultData() {
         if (!Shared.isFirstLaunch()) {
             DbQuery.addDefaultDataToDb();
@@ -81,7 +63,6 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.e(TAG, "onCreateLoader");
         String orderBy =  TableCashDesk._DENOMINATION + " ASC";
         return new CursorLoader(App.instance(), UriMatcherHelper.CONTENT_URI,
                 null, null, null, orderBy);
@@ -89,12 +70,11 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.e(TAG, "onLoadFinished");
         view.updateAdapter(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.e(TAG, "onLoaderReset");
+
     }
 }

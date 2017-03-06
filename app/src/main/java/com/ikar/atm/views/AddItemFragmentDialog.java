@@ -1,6 +1,5 @@
 package com.ikar.atm.views;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -12,9 +11,7 @@ import android.widget.Toast;
 
 import com.ikar.atm.db.DbQuery;
 import com.ikar.atm.R;
-import com.ikar.atm.db.UriMatcherHelper;
-import com.ikar.atm.db.scheme.TableCashDesk;
-import com.ikar.atm.main.MainFragmentPresenter;
+import com.ikar.atm.utils.Utils;
 
 /**
  * Created by iKar on 11/6/15.
@@ -41,18 +38,20 @@ public class AddItemFragmentDialog extends DialogFragment {
                 String strBet = itemBet.getText().toString();
                 String strAmount = itemAmount.getText().toString();
 
-                int bet = MainFragmentPresenter.checkInputAmount(getActivity(), strBet, "Please enter a bet");
-                if (bet == 0) return;
-                int amount = MainFragmentPresenter.checkInputAmount(getActivity(), strAmount, "Please enter amount");
-                if (amount == 0) return;
-
-                String[] selectionArgs = new String[]{String.valueOf(bet)};
-                Cursor cursor = getActivity().getContentResolver().query(UriMatcherHelper.CONTENT_URI, null,
-                        TableCashDesk._DENOMINATION + "=?", selectionArgs, null);
-                if (cursor == null || cursor.getCount() > 0) {
-                    Toast.makeText(getActivity(), "Sorry this BET is present in DB",
-                            Toast.LENGTH_SHORT).show();
+                Integer bet = Utils.parseAmountFromText(strBet);
+                if (bet == null || bet == 0) {
+                    Toast.makeText(getActivity(), R.string.please_enter_a_bet, Toast.LENGTH_LONG).show();
                     return;
+                }
+                Integer amount = Utils.parseAmountFromText(strAmount);
+                if (amount == null || amount == 0) {
+                    Toast.makeText(getActivity(), R.string.please_enter_amount, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (DbQuery.checkIfBetPresent(bet)) {
+                    Toast.makeText(getActivity(), R.string.sorry_this_bet_is_present_in_db,
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     DbQuery.addNewCashDeskItem(amount, bet);
                     AddItemFragmentDialog.this.dismiss();

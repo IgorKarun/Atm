@@ -37,7 +37,7 @@ public class DbQuery {
     }
 
     public static boolean updateCashDeskItems(Map<Integer, Integer> result) {
-        if(result == null || result.size() == 0)
+        if (result == null || result.size() == 0)
             return false;
         for (Map.Entry<Integer, Integer> entry : result.entrySet()) {
             String[] selectionArgs = new String[]{String.valueOf(entry.getKey())};
@@ -71,5 +71,16 @@ public class DbQuery {
         contentValues.put(TableCashDesk._DENOMINATION, bet);
         contentValues.put(TableCashDesk._INVENTORY, amount > 0 ? amount : DEFAULT_INVENTORY);
         App.instance().getContentResolver().insert(UriMatcherHelper.CONTENT_URI, contentValues);
+    }
+
+    public static boolean checkIfBetPresent(Integer bet) {
+        String[] selectionArgs = new String[]{String.valueOf(bet)};
+        Cursor cursor = App.instance().getContentResolver().query(UriMatcherHelper.CONTENT_URI, null,
+                TableCashDesk._DENOMINATION + "=?", selectionArgs, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        return false;
     }
 }

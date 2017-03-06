@@ -1,9 +1,7 @@
 package com.ikar.atm.main;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,28 +15,33 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ikar.atm.R;
 import com.ikar.atm.adapters.RecyclerViewAdapter;
+import com.ikar.atm.utils.Utils;
 import com.ikar.atm.views.AddItemFragmentDialog;
 import com.ikar.atm.views.Dialogs;
+
+import java.util.Formatter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by iKar on 11/5/15.
  */
-public class MainFragment extends Fragment implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener, IMainFragmentView {
+public class MainFragment extends Fragment implements IMainFragmentView {
 
     private final static String TAG = MainFragment.class.getSimpleName();
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.rv_list) RecyclerView recyclerView;
+    @BindView(R.id.action_bar) Toolbar actionBar;
+    @BindView(R.id.fragment_main_et_amount) EditText editTextAMount;
     private MainFragmentPresenter presenter;
     private RecyclerViewAdapter adapter;
-    private LinearLayoutManager layoutManager;
-    private RecyclerView.ItemAnimator itemAnimator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,66 +52,19 @@ public class MainFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        Toolbar action_bar = (Toolbar) rootView.findViewById(R.id.action_bar);
-      //  action_bar.setTitle(R.string.events);
-      //  action_bar.setNavigationIcon(R.drawable.ic_drawer);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(action_bar);
-        //setSupportActionBar(myToolbar);
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(this);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-
+        ButterKnife.bind(this, rootView);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(actionBar);
         presenter = new MainFragmentPresenter(this);
-
         return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         //Faked Data
         presenter.defaultData();
         presenter.initLoading();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab:
-                /* In a real project we must apply some asynchronous mechanism */
-                EditText editTextAMount = (EditText) getActivity().findViewById(R.id.fragment_main_et_amount);
-                String amountText = editTextAMount.getText().toString();
-                int amount = MainFragmentPresenter.checkInputAmount(getActivity(),
-                        amountText, "Please enter amount");
-                if(amount > 0)
-                    presenter.calculateCashDesk(amount);
-
-                editTextAMount.setText("");
-                hideKeyboard();
-
-                break;
-        }
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager inputManager = (InputMethodManager) getActivity().
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     @Override
@@ -147,24 +103,27 @@ public class MainFragment extends Fragment implements View.OnClickListener,
         presenter.resetData();
     }
 
+    @OnClick(R.id.fab)
     @Override
     public void giveMoney() {
-
+        String amountText = editTextAMount.getText().toString();
+        Integer amount = Utils.parseAmountFromText(amountText);
+        if(amount != null && amount > 0) {
+            presenter.calculateCashDesk(amount);
+            editTextAMount.getText().clear();
+        } else
+            Toast.makeText(getActivity(), R.string.please_enter_amount, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void updateAdapter(Cursor cursor) {
         if (adapter == null) {
             adapter = new RecyclerViewAdapter(getActivity(), cursor);
-            layoutManager = new LinearLayoutManager(getActivity());
-            itemAnimator = new DefaultItemAnimator();
-
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setItemAnimator(itemAnimator);
-        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+        } else
             adapter.swapCursor(cursor);
-        }
     }
 
     @Override
@@ -175,10 +134,11 @@ public class MainFragment extends Fragment implements View.OnClickListener,
     @Override
     public void showAddNewItemDialog(boolean value, int amount) {
         if (value) {
-            Dialogs.transactionDialog(getActivity(), "Transaction succesful.", "Please get your "
-                    + Integer.toString(amount) + "$");
+            Dialogs.transactionDialog(getActivity(), getString(R.string.transaction_successful),
+                    new Formatter().format(getString(R.string.please_get_your_money), amount).toString());
         } else {
-            Dialogs.transactionDialog(getActivity(), "Transaction failed.", "Sorry, not enough cash.");
+            Dialogs.transactionDialog(getActivity(), getString(R.string.transaction_failed),
+                    getString(R.string.sorry_not_enough_cash));
         }
     }
 }
