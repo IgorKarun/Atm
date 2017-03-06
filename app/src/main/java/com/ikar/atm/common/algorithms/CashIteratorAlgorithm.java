@@ -1,6 +1,6 @@
-package com.ikar.atm.algorithms;
+package com.ikar.atm.common.algorithms;
 
-import com.ikar.atm.model.CashDeskItem;
+import com.ikar.atm.common.models.CashDeskItem;
 
 import java.util.List;
 import java.util.Map;

@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.ikar.atm.R;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

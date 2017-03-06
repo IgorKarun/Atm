@@ -1,4 +1,4 @@
-package com.ikar.atm.db;
+package com.ikar.atm.common.db;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-import com.ikar.atm.db.scheme.TableCashDesk;
+import com.ikar.atm.common.db.scheme.TableCashDesk;
 
 /**
  * Created by iKar on 11/5/15.

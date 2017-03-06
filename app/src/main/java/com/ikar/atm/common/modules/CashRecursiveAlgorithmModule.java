@@ -1,7 +1,7 @@
-package com.ikar.atm.modules;
+package com.ikar.atm.common.modules;
 
-import com.ikar.atm.algorithms.CashRecursiveAlgorithm;
-import com.ikar.atm.algorithms.ICash;
+import com.ikar.atm.common.algorithms.CashRecursiveAlgorithm;
+import com.ikar.atm.common.algorithms.ICash;
 
 import dagger.Module;
 import dagger.Provides;

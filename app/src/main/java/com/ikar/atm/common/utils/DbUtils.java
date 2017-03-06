@@ -1,8 +1,8 @@
-package com.ikar.atm.utils;
+package com.ikar.atm.common.utils;
 
 import android.database.Cursor;
 
-import com.ikar.atm.utils.cache.ColumnIndexCache;
+import com.ikar.atm.common.utils.cache.ColumnIndexCache;
 
 import java.util.Date;
 

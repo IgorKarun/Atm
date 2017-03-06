@@ -1,4 +1,4 @@
-package com.ikar.atm.utils.cache;
+package com.ikar.atm.common.utils.cache;
 
 import android.database.Cursor;
 import android.support.v4.util.ArrayMap;
