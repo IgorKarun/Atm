@@ -7,13 +7,13 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
 import com.ikar.atm.App;
-import com.ikar.atm.algorithms.ICash;
+import com.ikar.atm.common.algorithms.ICash;
 import com.ikar.atm.common.shared.Shared;
-import com.ikar.atm.components.DaggerICashComponent;
-import com.ikar.atm.model.CashDeskItem;
-import com.ikar.atm.db.DbQuery;
-import com.ikar.atm.db.UriMatcherHelper;
-import com.ikar.atm.db.scheme.TableCashDesk;
+import com.ikar.atm.common.components.DaggerICashComponent;
+import com.ikar.atm.common.models.CashDeskItem;
+import com.ikar.atm.common.db.DbQuery;
+import com.ikar.atm.common.db.UriMatcherHelper;
+import com.ikar.atm.common.db.scheme.TableCashDesk;
 
 import java.util.List;
 import java.util.Map;

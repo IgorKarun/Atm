@@ -1,4 +1,4 @@
-package com.ikar.atm.views;
+package com.ikar.atm.common.views;
 
 import android.content.Context;
 import android.content.DialogInterface;

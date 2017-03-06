@@ -1,10 +1,10 @@
-package com.ikar.atm.db;
+package com.ikar.atm.common.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ikar.atm.db.scheme.TableCashDesk;
+import com.ikar.atm.common.db.scheme.TableCashDesk;
 
 /**
  * Created by iKar on 11/5/15.

@@ -1,4 +1,4 @@
-package com.ikar.atm.db;
+package com.ikar.atm.common.db;
 
 import android.content.UriMatcher;
 import android.net.Uri;

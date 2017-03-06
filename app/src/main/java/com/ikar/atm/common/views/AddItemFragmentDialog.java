@@ -1,4 +1,4 @@
-package com.ikar.atm.views;
+package com.ikar.atm.common.views;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ikar.atm.db.DbQuery;
+import com.ikar.atm.common.db.DbQuery;
 import com.ikar.atm.R;
-import com.ikar.atm.utils.Utils;
+import com.ikar.atm.common.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

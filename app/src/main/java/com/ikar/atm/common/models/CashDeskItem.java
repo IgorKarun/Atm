@@ -1,11 +1,11 @@
-package com.ikar.atm.model;
+package com.ikar.atm.common.models;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.ikar.atm.db.scheme.TableCashDesk;
-import com.ikar.atm.utils.DbUtils;
-import com.ikar.atm.utils.cache.ColumnIndexCache;
+import com.ikar.atm.common.db.scheme.TableCashDesk;
+import com.ikar.atm.common.utils.DbUtils;
+import com.ikar.atm.common.utils.cache.ColumnIndexCache;
 
 /**
  * Created by iKar on 11/5/15.

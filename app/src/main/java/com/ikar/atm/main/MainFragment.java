@@ -19,10 +19,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ikar.atm.R;
-import com.ikar.atm.adapters.RecyclerViewAdapter;
-import com.ikar.atm.utils.Utils;
-import com.ikar.atm.views.AddItemFragmentDialog;
-import com.ikar.atm.views.Dialogs;
+import com.ikar.atm.common.utils.Utils;
+import com.ikar.atm.common.views.AddItemFragmentDialog;
+import com.ikar.atm.common.views.Dialogs;
 
 import java.util.Formatter;
 
