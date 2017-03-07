@@ -24,12 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/fragment_main_et_amount" />
-
             <EditText
                 android:id="@+id/fragment_main_et_amount"
                 android:layout_width="match_parent"
@@ -40,6 +34,23 @@
                 android:imeOptions="actionDone"
                 android:maxLines="1"
                 android:inputType="number" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/spacer"
+                android:layout_below="@+id/fragment_main_et_amount"
+                android:background="@color/item_border"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/spacer" />
+
+
 
         </RelativeLayout>
 
