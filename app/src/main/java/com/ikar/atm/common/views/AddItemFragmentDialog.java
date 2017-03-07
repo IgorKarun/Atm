@@ -59,6 +59,7 @@ public class AddItemFragmentDialog extends DialogFragment {
                     Toast.LENGTH_SHORT).show();
         } else {
             DbQuery.addNewCashDeskItem(amount, bet);
+            Toast.makeText(getContext(), R.string.item_added, Toast.LENGTH_SHORT).show();
             AddItemFragmentDialog.this.dismiss();
         }
     }

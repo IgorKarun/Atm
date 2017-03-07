@@ -3,6 +3,7 @@ package com.ikar.atm.common.views;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.ikar.atm.R;
 
@@ -14,7 +15,7 @@ public class Dialogs {
 
     private final static String TAG = Dialogs.class.getSimpleName();
 
-    public static void transactionDialog(Context context, String title, String message) {
+    public static void transactionDialog(final Context context, String title, String message) {
         new AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
                 .setTitle(title)
                 .setMessage(message)

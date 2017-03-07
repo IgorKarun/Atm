@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ikar.atm.R;
-import com.ikar.atm.common.db.UriMatcherHelper;
-import com.ikar.atm.common.db.scheme.TableCashDesk;
+import com.ikar.atm.common.db.DbQuery;
+import com.ikar.atm.common.models.CashDeskItem;
+import com.ikar.atm.common.utils.cache.ColumnIndexCache;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by iKar on 11/5/15.
@@ -21,10 +25,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Activity activity;
     private Cursor cursor;
+    private ColumnIndexCache cache;
 
     public RecyclerViewAdapter(final Activity activity, Cursor cursor) {
         this.activity = activity;
         this.cursor = cursor;
+        cache = new ColumnIndexCache();
     }
 
     @Override
@@ -39,16 +45,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-        final int rowId = cursor.getInt(cursor.getColumnIndex(TableCashDesk._ID));
-        final String price = cursor.getString(cursor.getColumnIndex(TableCashDesk._DENOMINATION));
-        final String amount = cursor.getString(cursor.getColumnIndex(TableCashDesk._INVENTORY));
+        final CashDeskItem cashDeskItem = new CashDeskItem(cursor, cache);
 
-        holder.price.setText(price + "$");
-        holder.amount.setText(amount);
+        holder.price.setText(Integer.toString(cashDeskItem.getDenomination()) + "$");
+        holder.amount.setText(Integer.toString(cashDeskItem.getInventory()));
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteItem(rowId);
+                DbQuery.deleteCashDeskItem(cashDeskItem.getRowId());
             }
         });
     }
@@ -80,23 +84,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return oldCursor;
     }
 
-    private void deleteItem(int rowId) {
-        String[] selectionArgs=new String[]{String.valueOf(rowId)};
-        activity.getContentResolver().delete(UriMatcherHelper.CONTENT_URI,
-                TableCashDesk._ID +"=?", selectionArgs);
-
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView price;
-        private TextView amount;
-        private TextView deleteItem;
+        @BindView(R.id.item_cashdesk_tv_price) TextView price;
+        @BindView(R.id.item_cashdesk_tv_amount) TextView amount;
+        @BindView(R.id.item_cashdesk_tv_del) TextView deleteItem;
 
         public ViewHolder(View view) {
             super(view);
-            price = (TextView) itemView.findViewById(R.id.item_cashdesk_tv_price);
-            amount = (TextView) itemView.findViewById(R.id.item_cashdesk_tv_amount);
-            deleteItem = (TextView) itemView.findViewById(R.id.item_cashdesk_tv_del);
+            ButterKnife.bind(this, view);
         }
     }
 

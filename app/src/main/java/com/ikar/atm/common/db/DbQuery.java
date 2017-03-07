@@ -85,4 +85,10 @@ public class DbQuery {
         }
         return false;
     }
+
+    public static void deleteCashDeskItem(int rowId) {
+        String[] selectionArgs=new String[]{String.valueOf(rowId)};
+        App.instance().getContentResolver().delete(UriMatcherHelper.CONTENT_URI,
+                TableCashDesk._ID +"=?", selectionArgs);
+    }
 }
