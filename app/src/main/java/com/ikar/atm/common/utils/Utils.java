@@ -69,7 +69,7 @@ public class Utils {
 
     public static Integer parseAmountFromText(String amountText) {
         if (!TextUtils.isEmpty(amountText)) {
-            Pattern p = Pattern.compile("^[1-9]\\d*$");
+            Pattern p = Pattern.compile("^[0-9]\\d*$");
             Matcher m = p.matcher(amountText);
             if (m.matches())
                 return Integer.parseInt(amountText);

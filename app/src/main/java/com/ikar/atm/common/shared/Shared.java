@@ -15,17 +15,17 @@ public class Shared {
     private static final String FIRST_LAUNCH_PARAM = "FirstLaunch";
 
     public static boolean isFirstLaunch() {
-        SharedPreferences mSettings
-                = App.instance().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        return mSettings.getBoolean(FIRST_LAUNCH_PARAM, false);
+        return getSharedPrefs().getBoolean(FIRST_LAUNCH_PARAM, false);
     }
 
     public static void setFirstLaunch(boolean value) {
-        SharedPreferences mSettings
-                = App.instance().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences mSettings = getSharedPrefs();
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putBoolean(FIRST_LAUNCH_PARAM, value);
         editor.apply();
     }
 
+    private static SharedPreferences getSharedPrefs() {
+        return App.instance().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    }
 }
