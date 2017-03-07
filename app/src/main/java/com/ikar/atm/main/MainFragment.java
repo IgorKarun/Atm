@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -118,6 +119,8 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     public void updateAdapter(Cursor cursor) {
         if (adapter == null) {
             adapter = new RecyclerViewAdapter(getActivity(), cursor);
+            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                    DividerItemDecoration.VERTICAL));
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
