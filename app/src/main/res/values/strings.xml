@@ -13,5 +13,6 @@
     <string name="transaction_failed">Transaction failed</string>
     <string name="sorry_not_enough_cash">Sorry, not enough cash</string>
     <string name="please_get_your_money">Please get your %d$</string>
+    <string name="item_added">Item added</string>
 
 </resources>

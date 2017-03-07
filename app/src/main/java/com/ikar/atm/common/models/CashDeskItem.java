@@ -12,6 +12,7 @@ import com.ikar.atm.common.utils.cache.ColumnIndexCache;
  */
 public class CashDeskItem {
 
+    private int rowId;
     private int denomination;
     private int inventory;
 
@@ -25,6 +26,7 @@ public class CashDeskItem {
     }
 
     public CashDeskItem(Cursor cursor, ColumnIndexCache cache) {
+        rowId = DbUtils.getIntegerValue(cursor, cache, TableCashDesk._ID);
         denomination = DbUtils.getIntegerValue(cursor, cache, TableCashDesk._DENOMINATION);
         inventory = DbUtils.getIntegerValue(cursor, cache, TableCashDesk._INVENTORY);
     }
@@ -50,5 +52,13 @@ public class CashDeskItem {
 
     public void setInventory(int inventory) {
         this.inventory = inventory;
+    }
+
+    public int getRowId() {
+        return rowId;
+    }
+
+    public void setRowId(int rowId) {
+        this.rowId = rowId;
     }
 }
