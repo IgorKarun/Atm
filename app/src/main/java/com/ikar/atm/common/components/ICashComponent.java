@@ -7,6 +7,7 @@ import dagger.Component;
 
 /**
  * Created by igorkarun on 2/26/17.
+ * Easy to replace CashRecursiveAlgorithm to any another
  */
 
 @Component(modules={CashRecursiveAlgorithmModule.class})
