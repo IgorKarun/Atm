@@ -20,6 +20,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by igorkarun on 3/2/17.
  */
@@ -41,12 +47,20 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
         view.initLoading(this);
     }
 
-    public void calculateCashDesk(int amount) {
+    public void calculateCashDesk(final int amount) {
+        //TODO: Need to add some progressbar
         List<CashDeskItem> cashDeskItems = DbQuery.getCashDeskItems(amount);
         cash = DaggerICashComponent.create().getCash();
-        Map<Integer, Integer> result = cash.getAmount(cashDeskItems, cashDeskItems.size() - 1, amount);
-        boolean value = DbQuery.updateCashDeskItems(result);
-        view.showAddNewItemDialog(value, amount);
+        cash.getAmount(cashDeskItems, amount)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Map<Integer, Integer>>() {
+                    @Override
+                    public void call(Map<Integer, Integer> result) {
+                        boolean value = DbQuery.updateCashDeskItems(result);
+                        view.showAddNewItemDialog(value, amount);
+                    }
+                });
     }
 
     public void defaultData() {

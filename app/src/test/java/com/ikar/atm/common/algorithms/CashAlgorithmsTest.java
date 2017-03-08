@@ -51,7 +51,7 @@ public class CashAlgorithmsTest {
     @Test
     public void testRecursiveAlgorithm() {
         Map<Integer, Integer> result = cashRecursiveAlgorithm
-                .getAmount(itemList, itemList.size() - 1, AMOUNT);
+                .calculate(itemList, itemList.size() - 1, AMOUNT);
 
         assertNotNull(result);
 
@@ -67,7 +67,7 @@ public class CashAlgorithmsTest {
     @Test
     public void testIteratorAlgorithm() {
         Map<Integer, Integer> result = cashIteratorAlgorithm
-                .getAmount(itemList, itemList.size() - 1, AMOUNT);
+                .calculate(itemList, itemList.size() - 1, AMOUNT);
 
         assertNull(result);
     }
@@ -78,7 +78,7 @@ public class CashAlgorithmsTest {
     @Test
     public void testGreedyAlgorithm() {
         Map<Integer, Integer> result = cashGridyAlgorithm
-                .getAmount(itemList, itemList.size() - 1, AMOUNT);
+                .calculate(itemList, itemList.size() - 1, AMOUNT);
 
         assertNull(result);
     }
