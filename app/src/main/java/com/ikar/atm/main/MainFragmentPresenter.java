@@ -16,14 +16,10 @@ import com.ikar.atm.common.db.UriMatcherHelper;
 import com.ikar.atm.common.db.scheme.TableCashDesk;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import rx.Scheduler;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -54,12 +50,9 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
         cash.getAmount(cashDeskItems, amount)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Map<Integer, Integer>>() {
-                    @Override
-                    public void call(Map<Integer, Integer> result) {
-                        boolean value = DbQuery.updateCashDeskItems(result);
-                        view.showAddNewItemDialog(value, amount);
-                    }
+                .subscribe(result -> {
+                    boolean value = DbQuery.updateCashDeskItems(result);
+                    view.showAddNewItemDialog(value, amount);
                 });
     }
 
