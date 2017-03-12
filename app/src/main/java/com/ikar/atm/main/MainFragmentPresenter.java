@@ -37,10 +37,7 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
 
     public MainFragmentPresenter(IMainFragmentView view) {
         this.view = view;
-    }
-
-    public void initLoading() {
-        view.initLoading(this);
+        this.view.initLoading(this);
     }
 
     public void calculateCashDesk(final int amount) {
@@ -56,10 +53,10 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
                 });
     }
 
-    public void defaultData() {
+    private void defaultData() {
         if (!Shared.isFirstLaunch()) {
-            DbQuery.addDefaultDataToDb();
             Shared.setFirstLaunch(true);
+            DbQuery.addDefaultDataToDb();
         }
     }
 
@@ -78,6 +75,7 @@ public class MainFragmentPresenter implements LoaderManager.LoaderCallbacks<Curs
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         view.updateAdapter(data);
+        defaultData();
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.ikar.atm.common.views;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import com.ikar.atm.R;
 
@@ -19,13 +17,7 @@ public class Dialogs {
         new AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.cancel();
-                            }
-                        }
-                )
+                .setPositiveButton(R.string.ok,(dialog, whichButton) -> dialog.cancel())
                 .show();
     }
 

@@ -37,9 +37,12 @@ public class MainFragment extends Fragment implements IMainFragmentView {
 
     private final static String TAG = MainFragment.class.getSimpleName();
 
-    @BindView(R.id.rv_list) RecyclerView recyclerView;
-    @BindView(R.id.action_bar) Toolbar actionBar;
-    @BindView(R.id.fragment_main_et_amount) EditText editTextAMount;
+    @BindView(R.id.rv_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.action_bar)
+    Toolbar actionBar;
+    @BindView(R.id.fragment_main_et_amount)
+    EditText editTextAMount;
     private MainFragmentPresenter presenter;
     private RecyclerViewAdapter adapter;
 
@@ -55,16 +58,13 @@ public class MainFragment extends Fragment implements IMainFragmentView {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, rootView);
         ((AppCompatActivity) getActivity()).setSupportActionBar(actionBar);
-        presenter = new MainFragmentPresenter(this);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //Faked Data
-        presenter.defaultData();
-        presenter.initLoading();
+        presenter = new MainFragmentPresenter(this);
     }
 
     @Override
@@ -106,9 +106,8 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.fab)
     @Override
     public void giveMoney() {
-        String amountText = editTextAMount.getText().toString();
-        Integer amount = Utils.parseAmountFromText(amountText);
-        if(amount != null && amount > 0) {
+        Integer amount = Utils.parseAmountFromText(editTextAMount.getText().toString());
+        if (amount != null && amount > 0) {
             presenter.calculateCashDesk(amount);
             editTextAMount.getText().clear();
         } else
@@ -135,12 +134,10 @@ public class MainFragment extends Fragment implements IMainFragmentView {
 
     @Override
     public void showAddNewItemDialog(boolean value, int amount) {
-        if (value) {
-            Dialogs.transactionDialog(getActivity(), getString(R.string.transaction_successful),
-                    new Formatter().format(getString(R.string.please_get_your_money), amount).toString());
-        } else {
-            Dialogs.transactionDialog(getActivity(), getString(R.string.transaction_failed),
-                    getString(R.string.sorry_not_enough_cash));
-        }
+        Dialogs.transactionDialog(getActivity(), getString(
+                value ? R.string.transaction_successful : R.string.transaction_failed),
+                value ? new Formatter().format(getString(R.string.please_get_your_money),
+                        amount).toString() : getString(R.string.sorry_not_enough_cash));
+
     }
 }

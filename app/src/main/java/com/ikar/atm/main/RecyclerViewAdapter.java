@@ -49,12 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.price.setText(Integer.toString(cashDeskItem.getDenomination()) + "$");
         holder.amount.setText(Integer.toString(cashDeskItem.getInventory()));
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DbQuery.deleteCashDeskItem(cashDeskItem.getRowId());
-            }
-        });
+        holder.deleteItem.setOnClickListener(
+                v -> DbQuery.deleteCashDeskItem(cashDeskItem.getRowId()));
     }
 
     @Override
